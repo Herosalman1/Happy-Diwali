@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Wish Link Generator</title>
+  <title>Diwali Wish Link Generator</title>
   <style>
     * {
       box-sizing: border-box;
@@ -30,7 +30,7 @@
       text-align: center;
     }
     h2 {
-      color: #ff5e97;
+      color: #f0d054;
       font-size: 1.8rem;
       margin-bottom: 25px;
       display: flex;
@@ -61,7 +61,7 @@
       transition: border-color 0.3s ease;
     }
     input[type="text"]:focus {
-      border-color: #a855f7;
+      border-color: #f59e0b;
     }
     input[type="text"]::placeholder {
       color: #6a5375;
@@ -69,7 +69,7 @@
     .btn-generate {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #d946ef, #8b5cf6);
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
       border: none;
       border-radius: 10px;
       color: #ffffff;
@@ -77,7 +77,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s ease, transform 0.2s ease, opacity 0.2s ease;
-      box-shadow: 0 4px 15px rgba(217, 70, 239, 0.3);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
     }
     .btn-generate:hover {
       opacity: 0.95;
@@ -117,9 +117,9 @@
 <body>
 
   <div class="card">
-    <h2>Link Generator ✨</h2>
+    <h2>Diwali Link Generator 🪔</h2>
     <div class="input-group">
-      <label for="friendName">Friend's Name:</label>
+      <label for="friendName">Enter Name:</label>
       <input type="text" id="friendName" placeholder="e.g. Rahul, Priya...">
     </div>
     <button class="btn-generate" id="genBtn" onclick="generateLink()">Generate Link 🔗</button>
@@ -151,19 +151,19 @@
       const genBtn = document.getElementById('genBtn');
 
       if (!name) {
-        // Bina alert ke button ka text aur color error show karega
         const oldText = genBtn.innerText;
         genBtn.innerText = 'Enter Name First! ⚠️';
-        genBtn.style.background = '#ef4444'; // Red color
+        genBtn.style.background = '#ef4444'; 
         
         setTimeout(() => {
           genBtn.innerText = oldText;
-          genBtn.style.background = 'linear-gradient(135deg, #d946ef, #8b5cf6)';
+          genBtn.style.background = 'linear-gradient(135deg, #f59e0b, #ef4444)';
         }, 2000);
         return;
       }
       
-      const baseUrl = 'https://herosalman1.github.io/CANDLE-CAKE/surprise.html';
+      // Yahan aapki github repo aur receiver file ka naam aayega
+      const baseUrl = 'https://herosalman1.github.io/Happy-Diwali/diwali.html';
       const fullUrl = `${baseUrl}?name=${encodeURIComponent(name)}`;
       
       document.getElementById('generatedUrl').value = fullUrl;
@@ -183,7 +183,6 @@
           copyBtn.style.background = '#3b82f6'; 
         }, 2000);
       }).catch(err => {
-        // Error aane par alert ki jagah button par dikhayega
         copyBtn.innerText = 'Failed! ❌';
         copyBtn.style.background = '#ef4444'; 
         
@@ -197,7 +196,6 @@
     function previewLink() {
       const url = document.getElementById('generatedUrl').value;
       if (url) {
-        // Bina kisi popup/naye tab ke direct usi page par link khol dega
         window.location.href = url;
       }
     }
