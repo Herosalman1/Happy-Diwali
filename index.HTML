@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Wish Link Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #120713;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+    }
+    .card {
+      background: #23122c;
+      width: 100%;
+      max-width: 480px;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+    h2 {
+      color: #ff5e97;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .input-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      color: #d1c4e9;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #180a1f;
+      border: 1px solid #3d1f4d;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #a855f7;
+    }
+    input[type="text"]::placeholder {
+      color: #6a5375;
+    }
+    .btn-generate {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #d946ef, #8b5cf6);
+      border: none;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease, opacity 0.2s ease;
+      box-shadow: 0 4px 15px rgba(217, 70, 239, 0.3);
+    }
+    .btn-generate:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+    .btn-generate:active {
+      transform: translateY(0);
+    }
+    .result-box {
+      margin-top: 25px;
+      display: none;
+      flex-direction: row;
+      gap: 15px;
+    }
+    .btn-copy, .btn-preview {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.3s ease, opacity 0.2s;
+    }
+    .btn-copy {
+      background: #3b82f6; 
+    }
+    .btn-preview {
+      background: #10b981; 
+    }
+    .btn-copy:hover, .btn-preview:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Link Generator ✨</h2>
+    <div class="input-group">
+      <label for="friendName">Friend's Name:</label>
+      <input type="text" id="friendName" placeholder="e.g. Rahul, Priya...">
+    </div>
+    <button class="btn-generate" id="genBtn" onclick="generateLink()">Generate Link 🔗</button>
+
+    <input type="hidden" id="generatedUrl">
+
+    <div class="result-box" id="resultBox">
+      <button class="btn-copy" id="copyBtn" onclick="copyLink()">Copy Link 📋</button>
+      <button class="btn-preview" onclick="previewLink()">Click To Preview 👁️</button>
+    </div>
+  </div>
+
+  <script>
+    function toTitleCase(str) {
+      return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+        return match.toUpperCase();
+      });
+    }
+
+    document.getElementById('friendName').addEventListener('input', function(e) {
+      let start = this.selectionStart;
+      let end = this.selectionEnd;
+      this.value = toTitleCase(this.value);
+      this.setSelectionRange(start, end); 
+    });
+
+    function generateLink() {
+      const name = document.getElementById('friendName').value.trim();
+      const genBtn = document.getElementById('genBtn');
+
+      if (!name) {
+        // Bina alert ke button ka text aur color error show karega
+        const oldText = genBtn.innerText;
+        genBtn.innerText = 'Enter Name First! ⚠️';
+        genBtn.style.background = '#ef4444'; // Red color
+        
+        setTimeout(() => {
+          genBtn.innerText = oldText;
+          genBtn.style.background = 'linear-gradient(135deg, #d946ef, #8b5cf6)';
+        }, 2000);
+        return;
+      }
+      
+      const baseUrl = 'https://herosalman1.github.io/CANDLE-CAKE/surprise.html';
+      const fullUrl = `${baseUrl}?name=${encodeURIComponent(name)}`;
+      
+      document.getElementById('generatedUrl').value = fullUrl;
+      document.getElementById('resultBox').style.display = 'flex';
+    }
+
+    function copyLink() {
+      const url = document.getElementById('generatedUrl').value;
+      const copyBtn = document.getElementById('copyBtn');
+      
+      navigator.clipboard.writeText(url).then(() => {
+        copyBtn.innerText = 'Copied! ✅';
+        copyBtn.style.background = '#059669'; 
+        
+        setTimeout(() => {
+          copyBtn.innerText = 'Copy Link 📋';
+          copyBtn.style.background = '#3b82f6'; 
+        }, 2000);
+      }).catch(err => {
+        // Error aane par alert ki jagah button par dikhayega
+        copyBtn.innerText = 'Failed! ❌';
+        copyBtn.style.background = '#ef4444'; 
+        
+        setTimeout(() => {
+          copyBtn.innerText = 'Copy Link 📋';
+          copyBtn.style.background = '#3b82f6'; 
+        }, 2000);
+      });
+    }
+
+    function previewLink() {
+      const url = document.getElementById('generatedUrl').value;
+      if (url) {
+        // Bina kisi popup/naye tab ke direct usi page par link khol dega
+        window.location.href = url;
+      }
+    }
+  </script>
+
+</body>
+</html>
