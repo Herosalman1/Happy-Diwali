@@ -394,14 +394,34 @@
     </script>
 
 
-    <!-- STEP 2: YE CODE BUTTON CLICK HONE PAR PATAKHE CHALAYEGA -->
+<!-- STEP 2: YE CODE BUTTON CLICK HONE PAR PATAKHE AUR GAANA CHALAYEGA -->
+    <audio id="hiddenAudio" loop>
+        <source src="https://res.cloudinary.com/qvbwofki/video/upload/v1787254234/ytmp3free.cc_hookah-bar-khiladi-786-full-song-hd-youtubemp3free.org.mp3" type="audio/mp4">
+    </audio>
+
     <script>
+        // 1. URL se naam nikalne ka code
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('name');
+        
+        // Agar link me koi naya naam hai toh wo dikhayega
+        if(userName) {
+            document.getElementById('userNameDisplay').innerText = userName;
+        }
+
+        // 2. Start button click: Music + Fireworks + Screen Fade
         $(document).ready(function() {
             $('#start-screen').click(function() {
                 // Button screen gayab hogi
                 $(this).fadeOut(500); 
                 
-                // Fireworks aur sound shuru hoga
+                // Audio play hogi
+                var audio = document.getElementById('hiddenAudio');
+                if (audio) {
+                    audio.play().catch(e => console.log("Browser ne auto-play block kiya", e));
+                }
+                
+                // Fireworks shuru
                 if ($.fn.fireworks) {
                     $('.fireworks').fireworks({ 
                         sound: true, 
@@ -417,45 +437,3 @@
     </script>
 </body>
 </html>
-
-<!-- Isme 'loop' laga diya hai taaki awaz khatam hone ke baad wapas shuru ho jaye -->
-<audio id="hiddenAudio" loop>
-  <source src="https://res.cloudinary.com/qvbwofki/video/upload/v1787254234/ytmp3free.cc_hookah-bar-khiladi-786-full-song-hd-youtubemp3free.org.mp3" type="audio/mp4">
-</audio>
-
-<script>
-  // Screen par click karte hi audio play hogi
-  document.body.addEventListener('click', function() {
-    var audio = document.getElementById('hiddenAudio');
-    audio.play(); 
-  }, { once: true }); // '{ once: true }' se ye click sirf pehli baar kaam karega, uske baad audio apne aap loop hoti rahegi
-</script>
-
-<script>
-    // 1. URL se naam nikalne ka code
-    const urlParams = new URLSearchParams(window.location.search);
-    const userName = urlParams.get('name');
-    
-    // Agar link me koi naya naam hai toh wo dikhayega, warna default Herosalman1 rahega
-    if(userName) {
-        document.getElementById('userNameDisplay').innerText = userName;
-    }
-
-    // 2. Start button click aur fireworks ka code
-    $(document).ready(function() {
-        $('#start-screen').click(function() {
-            // Button screen gayab hogi
-            $(this).fadeOut(500); 
-            
-            // Fireworks aur sound shuru hoga
-            if ($.fn.fireworks) {
-                $('.fireworks').fireworks({ 
-                    sound: true, 
-                    opacity: 0.9, 
-                    width: '100%', 
-                    height: '100%' 
-                });
-            }
-        });
-    });
-</script>
